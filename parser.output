@@ -1,0 +1,1168 @@
+State 18 conflicts: 9 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: functions
+
+    2 functions: functions function
+    3          | function
+
+    4 function: type IDENTIFIER '(' params ')' compound_stmt
+
+    5 type: INT
+    6     | VOID
+
+    7 params: /* empty */
+    8       | param_list
+
+    9 param_list: param_list ',' param
+   10           | param
+
+   11 param: type IDENTIFIER
+
+   12 compound_stmt: '{' stmts '}'
+
+   13 stmts: stmts stmt
+   14      | stmt
+   15      | /* empty */
+
+   16 stmt: expr_stmt
+   17     | decl_stmt
+   18     | if_stmt
+   19     | while_stmt
+   20     | return_stmt
+   21     | compound_stmt
+
+   22 decl_stmt: type IDENTIFIER ';'
+
+   23 expr_stmt: expression ';'
+
+   24 if_stmt: IF '(' expression ')' stmt
+   25        | IF '(' expression ')' stmt ELSE stmt
+
+   26 while_stmt: WHILE '(' expression ')' stmt
+
+   27 return_stmt: RETURN expression ';'
+
+   28 expression: IDENTIFIER '=' expression
+   29           | expression '+' expression
+   30           | expression '-' expression
+   31           | expression '*' expression
+   32           | expression '/' expression
+   33           | expression EQ expression
+   34           | expression NEQ expression
+   35           | expression GT expression
+   36           | expression LT expression
+   37           | expression GTE expression
+   38           | expression LTE expression
+   39           | '(' expression ')'
+   40           | IDENTIFIER
+   41           | NUMBER
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 4 24 25 26 39
+')' (41) 4 24 25 26 39
+'*' (42) 31
+'+' (43) 29
+',' (44) 9
+'-' (45) 30
+'/' (47) 32
+';' (59) 22 23 27
+'=' (61) 28
+'{' (123) 12
+'}' (125) 12
+error (256)
+IDENTIFIER (258) 4 11 22 28 40
+NUMBER (259) 41
+IF (260) 24 25
+ELSE (261) 25
+INT (262) 5
+RETURN (263) 27
+VOID (264) 6
+WHILE (265) 26
+EQ (266) 33
+NEQ (267) 34
+GT (268) 35
+LT (269) 36
+GTE (270) 37
+LTE (271) 38
+LOWER_THAN_ELSE (272)
+
+
+Nonterminals, with rules where they appear
+
+$accept (29)
+    on left: 0
+program (30)
+    on left: 1, on right: 0
+functions (31)
+    on left: 2 3, on right: 1 2
+function (32)
+    on left: 4, on right: 2 3
+type (33)
+    on left: 5 6, on right: 4 11 22
+params (34)
+    on left: 7 8, on right: 4
+param_list (35)
+    on left: 9 10, on right: 8 9
+param (36)
+    on left: 11, on right: 9 10
+compound_stmt (37)
+    on left: 12, on right: 4 21
+stmts (38)
+    on left: 13 14 15, on right: 12 13
+stmt (39)
+    on left: 16 17 18 19 20 21, on right: 13 14 24 25 26
+decl_stmt (40)
+    on left: 22, on right: 17
+expr_stmt (41)
+    on left: 23, on right: 16
+if_stmt (42)
+    on left: 24 25, on right: 18
+while_stmt (43)
+    on left: 26, on right: 19
+return_stmt (44)
+    on left: 27, on right: 20
+expression (45)
+    on left: 28 29 30 31 32 33 34 35 36 37 38 39 40 41, on right: 23
+    24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
+
+
+state 0
+
+    0 $accept: . program $end
+
+    INT   shift, and go to state 1
+    VOID  shift, and go to state 2
+
+    program    go to state 3
+    functions  go to state 4
+    function   go to state 5
+    type       go to state 6
+
+
+state 1
+
+    5 type: INT .
+
+    $default  reduce using rule 5 (type)
+
+
+state 2
+
+    6 type: VOID .
+
+    $default  reduce using rule 6 (type)
+
+
+state 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 7
+
+
+state 4
+
+    1 program: functions .
+    2 functions: functions . function
+
+    INT   shift, and go to state 1
+    VOID  shift, and go to state 2
+
+    $default  reduce using rule 1 (program)
+
+    function  go to state 8
+    type      go to state 6
+
+
+state 5
+
+    3 functions: function .
+
+    $default  reduce using rule 3 (functions)
+
+
+state 6
+
+    4 function: type . IDENTIFIER '(' params ')' compound_stmt
+
+    IDENTIFIER  shift, and go to state 9
+
+
+state 7
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 8
+
+    2 functions: functions function .
+
+    $default  reduce using rule 2 (functions)
+
+
+state 9
+
+    4 function: type IDENTIFIER . '(' params ')' compound_stmt
+
+    '('  shift, and go to state 10
+
+
+state 10
+
+    4 function: type IDENTIFIER '(' . params ')' compound_stmt
+
+    INT   shift, and go to state 1
+    VOID  shift, and go to state 2
+
+    $default  reduce using rule 7 (params)
+
+    type        go to state 11
+    params      go to state 12
+    param_list  go to state 13
+    param       go to state 14
+
+
+state 11
+
+   11 param: type . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 15
+
+
+state 12
+
+    4 function: type IDENTIFIER '(' params . ')' compound_stmt
+
+    ')'  shift, and go to state 16
+
+
+state 13
+
+    8 params: param_list .
+    9 param_list: param_list . ',' param
+
+    ','  shift, and go to state 17
+
+    $default  reduce using rule 8 (params)
+
+
+state 14
+
+   10 param_list: param .
+
+    $default  reduce using rule 10 (param_list)
+
+
+state 15
+
+   11 param: type IDENTIFIER .
+
+    $default  reduce using rule 11 (param)
+
+
+state 16
+
+    4 function: type IDENTIFIER '(' params ')' . compound_stmt
+
+    '{'  shift, and go to state 18
+
+    compound_stmt  go to state 19
+
+
+state 17
+
+    9 param_list: param_list ',' . param
+
+    INT   shift, and go to state 1
+    VOID  shift, and go to state 2
+
+    type   go to state 11
+    param  go to state 20
+
+
+state 18
+
+   12 compound_stmt: '{' . stmts '}'
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 1
+    RETURN      shift, and go to state 24
+    VOID        shift, and go to state 2
+    WHILE       shift, and go to state 25
+    '('         shift, and go to state 26
+    '{'         shift, and go to state 18
+
+    IDENTIFIER  [reduce using rule 15 (stmts)]
+    NUMBER      [reduce using rule 15 (stmts)]
+    IF          [reduce using rule 15 (stmts)]
+    INT         [reduce using rule 15 (stmts)]
+    RETURN      [reduce using rule 15 (stmts)]
+    VOID        [reduce using rule 15 (stmts)]
+    WHILE       [reduce using rule 15 (stmts)]
+    '('         [reduce using rule 15 (stmts)]
+    '{'         [reduce using rule 15 (stmts)]
+    $default    reduce using rule 15 (stmts)
+
+    type           go to state 27
+    compound_stmt  go to state 28
+    stmts          go to state 29
+    stmt           go to state 30
+    decl_stmt      go to state 31
+    expr_stmt      go to state 32
+    if_stmt        go to state 33
+    while_stmt     go to state 34
+    return_stmt    go to state 35
+    expression     go to state 36
+
+
+state 19
+
+    4 function: type IDENTIFIER '(' params ')' compound_stmt .
+
+    $default  reduce using rule 4 (function)
+
+
+state 20
+
+    9 param_list: param_list ',' param .
+
+    $default  reduce using rule 9 (param_list)
+
+
+state 21
+
+   28 expression: IDENTIFIER . '=' expression
+   40           | IDENTIFIER .
+
+    '='  shift, and go to state 37
+
+    $default  reduce using rule 40 (expression)
+
+
+state 22
+
+   41 expression: NUMBER .
+
+    $default  reduce using rule 41 (expression)
+
+
+state 23
+
+   24 if_stmt: IF . '(' expression ')' stmt
+   25        | IF . '(' expression ')' stmt ELSE stmt
+
+    '('  shift, and go to state 38
+
+
+state 24
+
+   27 return_stmt: RETURN . expression ';'
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 39
+
+
+state 25
+
+   26 while_stmt: WHILE . '(' expression ')' stmt
+
+    '('  shift, and go to state 40
+
+
+state 26
+
+   39 expression: '(' . expression ')'
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 41
+
+
+state 27
+
+   22 decl_stmt: type . IDENTIFIER ';'
+
+    IDENTIFIER  shift, and go to state 42
+
+
+state 28
+
+   21 stmt: compound_stmt .
+
+    $default  reduce using rule 21 (stmt)
+
+
+state 29
+
+   12 compound_stmt: '{' stmts . '}'
+   13 stmts: stmts . stmt
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 1
+    RETURN      shift, and go to state 24
+    VOID        shift, and go to state 2
+    WHILE       shift, and go to state 25
+    '('         shift, and go to state 26
+    '{'         shift, and go to state 18
+    '}'         shift, and go to state 43
+
+    type           go to state 27
+    compound_stmt  go to state 28
+    stmt           go to state 44
+    decl_stmt      go to state 31
+    expr_stmt      go to state 32
+    if_stmt        go to state 33
+    while_stmt     go to state 34
+    return_stmt    go to state 35
+    expression     go to state 36
+
+
+state 30
+
+   14 stmts: stmt .
+
+    $default  reduce using rule 14 (stmts)
+
+
+state 31
+
+   17 stmt: decl_stmt .
+
+    $default  reduce using rule 17 (stmt)
+
+
+state 32
+
+   16 stmt: expr_stmt .
+
+    $default  reduce using rule 16 (stmt)
+
+
+state 33
+
+   18 stmt: if_stmt .
+
+    $default  reduce using rule 18 (stmt)
+
+
+state 34
+
+   19 stmt: while_stmt .
+
+    $default  reduce using rule 19 (stmt)
+
+
+state 35
+
+   20 stmt: return_stmt .
+
+    $default  reduce using rule 20 (stmt)
+
+
+state 36
+
+   23 expr_stmt: expression . ';'
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ';'  shift, and go to state 55
+
+
+state 37
+
+   28 expression: IDENTIFIER '=' . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 56
+
+
+state 38
+
+   24 if_stmt: IF '(' . expression ')' stmt
+   25        | IF '(' . expression ')' stmt ELSE stmt
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 57
+
+
+state 39
+
+   27 return_stmt: RETURN expression . ';'
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ';'  shift, and go to state 58
+
+
+state 40
+
+   26 while_stmt: WHILE '(' . expression ')' stmt
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 59
+
+
+state 41
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+   39           | '(' expression . ')'
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ')'  shift, and go to state 60
+
+
+state 42
+
+   22 decl_stmt: type IDENTIFIER . ';'
+
+    ';'  shift, and go to state 61
+
+
+state 43
+
+   12 compound_stmt: '{' stmts '}' .
+
+    $default  reduce using rule 12 (compound_stmt)
+
+
+state 44
+
+   13 stmts: stmts stmt .
+
+    $default  reduce using rule 13 (stmts)
+
+
+state 45
+
+   33 expression: expression EQ . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 62
+
+
+state 46
+
+   34 expression: expression NEQ . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 63
+
+
+state 47
+
+   35 expression: expression GT . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 64
+
+
+state 48
+
+   36 expression: expression LT . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 65
+
+
+state 49
+
+   37 expression: expression GTE . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 66
+
+
+state 50
+
+   38 expression: expression LTE . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 67
+
+
+state 51
+
+   29 expression: expression '+' . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 68
+
+
+state 52
+
+   30 expression: expression '-' . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 69
+
+
+state 53
+
+   31 expression: expression '*' . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 70
+
+
+state 54
+
+   32 expression: expression '/' . expression
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    '('         shift, and go to state 26
+
+    expression  go to state 71
+
+
+state 55
+
+   23 expr_stmt: expression ';' .
+
+    $default  reduce using rule 23 (expr_stmt)
+
+
+state 56
+
+   28 expression: IDENTIFIER '=' expression .
+   29           | expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    $default  reduce using rule 28 (expression)
+
+
+state 57
+
+   24 if_stmt: IF '(' expression . ')' stmt
+   25        | IF '(' expression . ')' stmt ELSE stmt
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ')'  shift, and go to state 72
+
+
+state 58
+
+   27 return_stmt: RETURN expression ';' .
+
+    $default  reduce using rule 27 (return_stmt)
+
+
+state 59
+
+   26 while_stmt: WHILE '(' expression . ')' stmt
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '+'  shift, and go to state 51
+    '-'  shift, and go to state 52
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+    ')'  shift, and go to state 73
+
+
+state 60
+
+   39 expression: '(' expression ')' .
+
+    $default  reduce using rule 39 (expression)
+
+
+state 61
+
+   22 decl_stmt: type IDENTIFIER ';' .
+
+    $default  reduce using rule 22 (decl_stmt)
+
+
+state 62
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   33           | expression EQ expression .
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    GT   error (nonassociative)
+    LT   error (nonassociative)
+    GTE  error (nonassociative)
+    LTE  error (nonassociative)
+
+    $default  reduce using rule 33 (expression)
+
+
+state 63
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   34           | expression NEQ expression .
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    GT   error (nonassociative)
+    LT   error (nonassociative)
+    GTE  error (nonassociative)
+    LTE  error (nonassociative)
+
+    $default  reduce using rule 34 (expression)
+
+
+state 64
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   35           | expression GT expression .
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    GT   error (nonassociative)
+    LT   error (nonassociative)
+    GTE  error (nonassociative)
+    LTE  error (nonassociative)
+
+    $default  reduce using rule 35 (expression)
+
+
+state 65
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   36           | expression LT expression .
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    GT   error (nonassociative)
+    LT   error (nonassociative)
+    GTE  error (nonassociative)
+    LTE  error (nonassociative)
+
+    $default  reduce using rule 36 (expression)
+
+
+state 66
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   37           | expression GTE expression .
+   38           | expression . LTE expression
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    GT   error (nonassociative)
+    LT   error (nonassociative)
+    GTE  error (nonassociative)
+    LTE  error (nonassociative)
+
+    $default  reduce using rule 37 (expression)
+
+
+state 67
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+   38           | expression LTE expression .
+
+    EQ   error (nonassociative)
+    NEQ  error (nonassociative)
+    GT   error (nonassociative)
+    LT   error (nonassociative)
+    GTE  error (nonassociative)
+    LTE  error (nonassociative)
+
+    $default  reduce using rule 38 (expression)
+
+
+state 68
+
+   29 expression: expression . '+' expression
+   29           | expression '+' expression .
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+
+    $default  reduce using rule 29 (expression)
+
+
+state 69
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   30           | expression '-' expression .
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+    '*'  shift, and go to state 53
+    '/'  shift, and go to state 54
+
+    $default  reduce using rule 30 (expression)
+
+
+state 70
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   31           | expression '*' expression .
+   32           | expression . '/' expression
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+
+    $default  reduce using rule 31 (expression)
+
+
+state 71
+
+   29 expression: expression . '+' expression
+   30           | expression . '-' expression
+   31           | expression . '*' expression
+   32           | expression . '/' expression
+   32           | expression '/' expression .
+   33           | expression . EQ expression
+   34           | expression . NEQ expression
+   35           | expression . GT expression
+   36           | expression . LT expression
+   37           | expression . GTE expression
+   38           | expression . LTE expression
+
+    EQ   shift, and go to state 45
+    NEQ  shift, and go to state 46
+    GT   shift, and go to state 47
+    LT   shift, and go to state 48
+    GTE  shift, and go to state 49
+    LTE  shift, and go to state 50
+
+    $default  reduce using rule 32 (expression)
+
+
+state 72
+
+   24 if_stmt: IF '(' expression ')' . stmt
+   25        | IF '(' expression ')' . stmt ELSE stmt
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 1
+    RETURN      shift, and go to state 24
+    VOID        shift, and go to state 2
+    WHILE       shift, and go to state 25
+    '('         shift, and go to state 26
+    '{'         shift, and go to state 18
+
+    type           go to state 27
+    compound_stmt  go to state 28
+    stmt           go to state 74
+    decl_stmt      go to state 31
+    expr_stmt      go to state 32
+    if_stmt        go to state 33
+    while_stmt     go to state 34
+    return_stmt    go to state 35
+    expression     go to state 36
+
+
+state 73
+
+   26 while_stmt: WHILE '(' expression ')' . stmt
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 1
+    RETURN      shift, and go to state 24
+    VOID        shift, and go to state 2
+    WHILE       shift, and go to state 25
+    '('         shift, and go to state 26
+    '{'         shift, and go to state 18
+
+    type           go to state 27
+    compound_stmt  go to state 28
+    stmt           go to state 75
+    decl_stmt      go to state 31
+    expr_stmt      go to state 32
+    if_stmt        go to state 33
+    while_stmt     go to state 34
+    return_stmt    go to state 35
+    expression     go to state 36
+
+
+state 74
+
+   24 if_stmt: IF '(' expression ')' stmt .
+   25        | IF '(' expression ')' stmt . ELSE stmt
+
+    ELSE  shift, and go to state 76
+
+    $default  reduce using rule 24 (if_stmt)
+
+
+state 75
+
+   26 while_stmt: WHILE '(' expression ')' stmt .
+
+    $default  reduce using rule 26 (while_stmt)
+
+
+state 76
+
+   25 if_stmt: IF '(' expression ')' stmt ELSE . stmt
+
+    IDENTIFIER  shift, and go to state 21
+    NUMBER      shift, and go to state 22
+    IF          shift, and go to state 23
+    INT         shift, and go to state 1
+    RETURN      shift, and go to state 24
+    VOID        shift, and go to state 2
+    WHILE       shift, and go to state 25
+    '('         shift, and go to state 26
+    '{'         shift, and go to state 18
+
+    type           go to state 27
+    compound_stmt  go to state 28
+    stmt           go to state 77
+    decl_stmt      go to state 31
+    expr_stmt      go to state 32
+    if_stmt        go to state 33
+    while_stmt     go to state 34
+    return_stmt    go to state 35
+    expression     go to state 36
+
+
+state 77
+
+   25 if_stmt: IF '(' expression ')' stmt ELSE stmt .
+
+    $default  reduce using rule 25 (if_stmt)

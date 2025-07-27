@@ -61,19 +61,30 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     IDENTIFIER = 258,              /* IDENTIFIER  */
-    NUMBER = 259,                  /* NUMBER  */
-    IF = 260,                      /* IF  */
-    ELSE = 261,                    /* ELSE  */
-    INT = 262,                     /* INT  */
-    RETURN = 263,                  /* RETURN  */
-    VOID = 264,                    /* VOID  */
-    WHILE = 265,                   /* WHILE  */
-    EQ = 266,                      /* EQ  */
-    NEQ = 267,                     /* NEQ  */
-    GT = 268,                      /* GT  */
-    LT = 269,                      /* LT  */
-    GTE = 270,                     /* GTE  */
-    LTE = 271                      /* LTE  */
+    STRING = 259,                  /* STRING  */
+    NUMBER = 260,                  /* NUMBER  */
+    FLOAT_LITERAL = 261,           /* FLOAT_LITERAL  */
+    CHAR_LITERAL = 262,            /* CHAR_LITERAL  */
+    IF = 263,                      /* IF  */
+    ELSE = 264,                    /* ELSE  */
+    INT = 265,                     /* INT  */
+    VOID = 266,                    /* VOID  */
+    FLOAT = 267,                   /* FLOAT  */
+    CHAR = 268,                    /* CHAR  */
+    RETURN = 269,                  /* RETURN  */
+    WHILE = 270,                   /* WHILE  */
+    FOR = 271,                     /* FOR  */
+    BREAK = 272,                   /* BREAK  */
+    CONTINUE = 273,                /* CONTINUE  */
+    SCANF = 274,                   /* SCANF  */
+    PRINTF = 275,                  /* PRINTF  */
+    EQ = 276,                      /* EQ  */
+    NEQ = 277,                     /* NEQ  */
+    GT = 278,                      /* GT  */
+    LT = 279,                      /* LT  */
+    GTE = 280,                     /* GTE  */
+    LTE = 281,                     /* LTE  */
+    LOWER_THAN_ELSE = 282          /* LOWER_THAN_ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -82,13 +93,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 5 "parser.y"
+#line 21 "parser.y"
 
     int num;
+    float fnum;
+    char cval;
     char *str;
     ASTNode *node;
 
-#line 92 "parser.tab.h"
+#line 105 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
